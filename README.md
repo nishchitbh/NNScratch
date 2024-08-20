@@ -62,15 +62,17 @@ ReLU(z) = max(0, z)
 
 Softmax is an activation function used in the output layer for multi-class classification problems. It converts the output scores into probabilities that sum to 1. It is defined as:
 
+```
 Softmax(z_i) = exp(z_i) / sum(exp(z_j) for j in all_classes)
+```
 
 ### Loss Function
 
 The loss function measures the difference between the predicted output and the true output. In this project, the cross-entropy loss is used, which is defined as:
 
-
+```
 Loss = -sum(y_i * log(a_i) for i in all_classes)
-
+```
 
 where:
 - `y_i` is the true label (one-hot encoded)
