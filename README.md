@@ -4,23 +4,25 @@ This project implements a simple two-layer neural network for recognizing handwr
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Theory](#theory)
-  - [Neural Networks](#neural-networks)
-  - [Forward Propagation](#forward-propagation)
-  - [Backpropagation](#backpropagation)
-  - [Gradient Descent](#gradient-descent)
-  - [Activation Functions](#activation-functions)
-    - [ReLU (Rectified Linear Unit)](#relu-rectified-linear-unit)
-    - [Softmax](#softmax)
-  - [Loss Function](#loss-function)
-- [Implementation Details](#implementation-details)
-  - [Data Loading and Preprocessing](#data-loading-and-preprocessing)
-  - [Network Architecture](#network-architecture)
-  - [Training](#training)
-  - [Testing](#testing)
-- [How to Run the Code](#how-to-run-the-code)
-- [License](#license)
+- [Handwritten Digit Recognition with a Simple Neural Network](#handwritten-digit-recognition-with-a-simple-neural-network)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Theory](#theory)
+    - [Neural Networks](#neural-networks)
+    - [Forward Propagation](#forward-propagation)
+    - [Backpropagation](#backpropagation)
+    - [Gradient Descent](#gradient-descent)
+    - [Activation Functions](#activation-functions)
+      - [ReLU (Rectified Linear Unit)](#relu-rectified-linear-unit)
+      - [Softmax](#softmax)
+    - [Loss Function](#loss-function)
+  - [Implementation Details](#implementation-details)
+    - [Data Loading and Preprocessing](#data-loading-and-preprocessing)
+    - [Network Architecture](#network-architecture)
+    - [Training](#training)
+    - [Testing](#testing)
+  - [How to Run the Code](#how-to-run-the-code)
+  - [License](#license)
 
 ## Introduction
 
@@ -60,17 +62,15 @@ ReLU(z) = max(0, z)
 
 Softmax is an activation function used in the output layer for multi-class classification problems. It converts the output scores into probabilities that sum to 1. It is defined as:
 
-```
 Softmax(z_i) = exp(z_i) / sum(exp(z_j) for j in all_classes)
-```
 
 ### Loss Function
 
 The loss function measures the difference between the predicted output and the true output. In this project, the cross-entropy loss is used, which is defined as:
 
-```
+
 Loss = -sum(y_i * log(a_i) for i in all_classes)
-```
+
 
 where:
 - `y_i` is the true label (one-hot encoded)
