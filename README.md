@@ -1,63 +1,109 @@
-# Simple Handwritten Digit Classifier
+# Handwritten Digit Recognition with a Simple Neural Network
 
-This project implements a simple two-layer neural network for classifying handwritten digits from the MNIST dataset. It includes functionalities for data loading, preprocessing, training, and testing.
+This project implements a simple two-layer neural network for recognizing handwritten digits from the MNIST dataset. The network is trained using backpropagation and gradient descent.
 
-## Features
+## Table of Contents
 
-* **Data Loading and Preprocessing:** Loads data from CSV files and converts labels to one-hot encoding.
-* **Forward Propagation:** Implements forward propagation through the network using ReLU activation for the hidden layer and Softmax for the output layer.
-* **Backward Propagation:** Calculates gradients using backpropagation to update weights and biases.
-* **Training:** Trains the network using gradient descent with a specified learning rate and number of iterations.
-* **Testing:** Loads a random test image and performs inference using the trained model.
-* **Visualization:** Plots the training cost over iterations.
+- [Introduction](#introduction)
+- [Theory](#theory)
+  - [Neural Networks](#neural-networks)
+  - [Forward Propagation](#forward-propagation)
+  - [Backpropagation](#backpropagation)
+  - [Gradient Descent](#gradient-descent)
+  - [Activation Functions](#activation-functions)
+    - [ReLU (Rectified Linear Unit)](#relu-rectified-linear-unit)
+    - [Softmax](#softmax)
+  - [Loss Function](#loss-function)
+- [Implementation Details](#implementation-details)
+  - [Data Loading and Preprocessing](#data-loading-and-preprocessing)
+  - [Network Architecture](#network-architecture)
+  - [Training](#training)
+  - [Testing](#testing)
+- [How to Run the Code](#how-to-run-the-code)
+- [License](#license)
 
-## Requirements
+## Introduction
 
-* **Python:** Ensure you have Python installed.
-* **Libraries:** Install the necessary libraries using the following command:
+The MNIST dataset is a collection of 70,000 handwritten digits (0-9) that is commonly used for training and testing image classification models. This project uses a simple neural network to classify these digits.
 
-```bash
-pip install numpy matplotlib pandas
+## Theory
+
+### Neural Networks
+
+Neural networks are a class of machine learning models inspired by the structure and function of the human brain. They consist of interconnected nodes (neurons) organized in layers. Each connection between neurons has a weight associated with it, which determines the strength of the connection.
+
+### Forward Propagation
+
+Forward propagation is the process of passing input data through the network to obtain the output. The input data is multiplied by the weights of each connection and summed with a bias term. This weighted sum is then passed through an activation function to produce the output of the neuron. This process is repeated for each layer until the final output is obtained.
+
+### Backpropagation
+
+Backpropagation is the process of calculating the gradients of the loss function with respect to the weights and biases of the network. These gradients are then used to update the weights and biases during training.
+
+### Gradient Descent
+
+Gradient descent is an optimization algorithm used to minimize the loss function. It works by iteratively updating the weights and biases in the direction of the negative gradient.
+
+### Activation Functions
+
+Activation functions introduce non-linearity into the network, allowing it to learn complex patterns.
+
+#### ReLU (Rectified Linear Unit)
+
+ReLU is a simple activation function that returns the input if it is positive, and 0 otherwise. It is defined as:
+
+```
+ReLU(z) = max(0, z)
 ```
 
-## Dataset
+#### Softmax
 
-The project expects the MNIST dataset to be available in the following format:
+Softmax is an activation function used in the output layer for multi-class classification problems. It converts the output scores into probabilities that sum to 1. It is defined as:
 
-* **`train.csv`:** Contains the training data with labels.
-* **`test.csv`:** Contains the test data.
+```
+Softmax(z_i) = exp(z_i) / sum(exp(z_j) for j in all_classes)
+```
 
-You can download the MNIST dataset from various sources, including the official website or Kaggle.
+### Loss Function
 
-## Usage
+The loss function measures the difference between the predicted output and the true output. In this project, the cross-entropy loss is used, which is defined as:
 
-1. **Training:** Run the script to train the neural network. The trained weights will be saved in a file named `weights.npz`.
-   ```bash
-   python main.py
-   ```
+```
+Loss = -sum(y_i * log(a_i) for i in all_classes)
+```
 
-2. **Testing:** After training, the script will automatically load a random test image and perform inference using the saved weights.
+where:
+- `y_i` is the true label (one-hot encoded)
+- `a_i` is the predicted probability
 
-## Functionality Breakdown
+## Implementation Details
 
-* **`data(location)`:** Loads data from a CSV file and returns the data and labels.
-* **`one_hot_Y(Y)`:** Converts labels to one-hot encoding.
-* **`Z(w, x, b)`:** Calculates the weighted sum of inputs and bias.
-* **`ReLU(Z)`:** Applies the ReLU activation function.
-* **`Softmax(Z)`:** Applies the Softmax activation function.
-* **`ComputeLoss(a, Y)`:** Calculates the cross-entropy loss.
-* **`deriv_ReLU(z)`:** Calculates the derivative of the ReLU activation function.
-* **`ForwardProp(w1, b1, w2, b2, x)`:** Performs forward propagation through the network.
-* **`BackwardProp(X, w2, z1, a1, a2, one_hot, m)`:** Performs backward propagation to calculate gradients.
-* **`neuralnet(X, Y, iterations, alpha)`:** Trains the neural network.
-* **`train(plot)`:** Loads training data and trains the network.
-* **`test()`:** Loads a test image and performs inference.
-* **`main()`:** Main function to execute training or testing.
+### Data Loading and Preprocessing
 
-## Notes
+- The `data` function loads the MNIST dataset from CSV files.
+- The `one_hot_Y` function converts the labels to one-hot encoding.
 
-* The network architecture, hyperparameters (learning rate, iterations), and activation functions can be modified for experimentation.
-* The code provides a basic implementation and can be further improved with techniques like regularization, optimization algorithms, and more complex network architectures.
+### Network Architecture
+
+- The network has two layers:
+  - A hidden layer with 15 neurons and ReLU activation.
+  - An output layer with 10 neurons and Softmax activation.
+
+### Training
+
+- The `neuralnet` function trains the network using backpropagation and gradient descent.
+- The `train` function loads the training data and calls the `neuralnet` function to train the network.
+
+### Testing
+
+- The `test` function loads a random test image and performs inference using the trained model.
+
+## How to Run the Code
+
+1. **Dependencies:** Install the required libraries: `numpy`, `matplotlib`, and `pandas`.
+2. **Dataset:** Download the MNIST dataset and place the `train.csv` and `test.csv` files in the `dataset` folder.
+3. **Training:** Run the `main.py` script to train the network. The trained weights will be saved in a file named `weights.npz`.
+4. **Testing:** After training, run the `main.py` script again to test the network on a random test image.
 
 ## License
 
