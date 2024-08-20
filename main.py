@@ -4,7 +4,9 @@ import pandas as pd
 import random
 import os
 
-# This code implements a simple neural network for classifying handwritten digits from the MNIST dataset. It includes functions for data loading, preprocessing, forward propagation, backward propagation, and training. 
+# This code implements a simple neural network for classifying handwritten digits from the MNIST dataset. It includes functions for data loading, preprocessing, forward propagation, backward propagation, and training.
+
+
 def data(location):
     '''Loads data from a CSV file.
     Args:
@@ -165,11 +167,11 @@ def train(plot: bool):
         plot: Flag to indicate whether to plot the training cost.
     '''
     trainX, trainY = data('./dataset/train.csv')
-    w1, b1, w2, b2, costList = neuralnet(trainX, trainY, 100, 0.001)
+    w1, b1, w2, b2, costList = neuralnet(trainX, trainY, 300, 0.0005)
     np.savez('weights.npz', w1=w1, b1=b1, w2=w2, b2=b2)
     if plot:
         plot_x = list(range(len(costList)))
-        plt.plot(plot_x, costList, marker='o')
+        plt.plot(plot_x, costList)
         plt.title('Cost over iteration')
         plt.xlabel('Iteration')
         plt.ylabel('Cost')
@@ -186,11 +188,19 @@ def test():
     plt.imshow(to_plot)
     plt.show()
     weights = np.load("weights.npz")
-    print(weights['w1'].shape)
     z1, a1, a2 = ForwardProp(
         weights['w1'], weights['b1'], weights['w2'], weights['b2'], data_)
-    print(a2)
     print("Test result:", np.argmax(a2))
+
+
+def trainAcc(X, Y):
+    weights = np.load("weights.npz")
+    w1, b1, w2, b2 = weights['w1'], weights['b1'], weights['w2'], weights['b2']
+    z1, a1, a2 = ForwardProp(w1, b1, w2, b2, X)
+    matches = np.sum(np.argmax(a2, axis=0)==Y)
+    print("Accuracy: ",100*matches/42000)
+
+    
 
 
 def main():
@@ -198,8 +208,12 @@ def main():
     '''
     if not 'weights.npz' in os.listdir():
         train(plot=True)
+    X, Y = data('./dataset/train.csv')
+    trainAcc(X, Y)
     test()
 
 
 if __name__ == "__main__":
+    # main()
     main()
+
